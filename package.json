@@ -1,0 +1,19 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "## Product Vision ### Proposal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Build-Week-Secret-Family-Recipes-2/Front-End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Build-Week-Secret-Family-Recipes-2/Front-End/issues"
+  },
+  "homepage": "https://github.com/Build-Week-Secret-Family-Recipes-2/Front-End#readme"
+}

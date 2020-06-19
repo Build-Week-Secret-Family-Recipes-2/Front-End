@@ -6,7 +6,6 @@ import {
   FormGroup,
   Label,
   Input,
-  textarea,
 } from "reactstrap";
 import * as yup from "yup";
 
@@ -20,7 +19,7 @@ const RecipeCard = () => {
     instructions: "",
     categories: "",
   });
-
+    
   //validation schema
   const recipeSchema = yup.object().shape({
     recipeTitle: yup.string().required("Enter your Recipe Name"),
@@ -30,6 +29,7 @@ const RecipeCard = () => {
     categories: yup.string().required("Enter your Category!"),
   });
 
+  //submit form
   const submitRecipeForm = (e) => {
     recipeSchema
       .validate(userRecipe)

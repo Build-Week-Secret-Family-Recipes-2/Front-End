@@ -17,7 +17,7 @@ const Register = () => {
     password: yup.string().required("Please enter a password!"),
   });
 
-  const submitForm = () => {
+  const submitForm = (e) => {
     formSchema
       .validate(userData)
       .then((resp) => {
@@ -69,7 +69,7 @@ const Register = () => {
             type="email"
             name="email"
             id="exampleEmail"
-            placeholder="with a placeholder"
+            placeholder="Email"
             onChange={handleChange}
           />
         </FormGroup>
@@ -79,6 +79,7 @@ const Register = () => {
             type="password"
             name="password"
             id="examplePassword"
+            placeholder="Password"
             onChange={handleChange}
           />
         </FormGroup>

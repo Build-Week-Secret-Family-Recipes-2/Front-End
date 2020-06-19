@@ -4,7 +4,7 @@
 ### Proposal
 
 #### Mission Statement
-Bringing back traditions, history, and memories from family recipes.
+Bringing back traditions, history, and memories from family recipes
 
 #### What problem does our app solve?
 - Save family recipes

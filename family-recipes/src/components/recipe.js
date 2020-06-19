@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Card,
-  Form,
-  Button,
-  FormGroup,
-  Label,
-  Input,
-  textarea,
-} from "reactstrap";
+import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 
 const RecipeCard = () => {
   return (

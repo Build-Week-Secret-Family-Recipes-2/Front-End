@@ -6,15 +6,25 @@ const Register = () => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
+    userName: "",
     email: "",
     password: "",
   });
 
   const formSchema = yup.object().shape({
-    firstName: yup.string().required("Please enter your name!"),
-    lastName: yup.string().required("Please enter your name!"),
+    firstName: yup.string().required("Please enter your first name!"),
+    lastName: yup.string().required("Please enter your last name!"),
+    userName: yup.string().required("Please enter a Username!"),
     email: yup.string().required("Please enter an email!"),
     password: yup.string().required("Please enter a password!"),
+  });
+
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    password: "",
   });
 
   const submitForm = (e) => {
@@ -26,6 +36,30 @@ const Register = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const formValidation = (e) => {
+    formSchema
+      .validate(e.target.value)
+      .then((valid) => {
+        setErrors({ ...errors, [e.target.name]: "" });
+      })
+      .catch((err) => {
+        setErrors({
+          ...errors,
+          [e.target.name]: err.errors[0],
+        });
+      });
+  };
+
+  const inputChange = (e) => {
+    e.persist();
+    const newFormData = {
+      ...userData,
+      [e.target.name]: e.target.value,
+    };
+    formValidation(e);
+    setUserData(newFormData);
   };
 
   // (From Alex) ??
@@ -50,8 +84,10 @@ const Register = () => {
             name="firstName"
             id="firstName"
             placeholder="Username"
-            onChange={handleChange}
+            value={userData.firstName}
+            onChange={(handleChange, inputChange)}
           />
+          {errors.firstName.length > 0 ? <p>{errors.firstName}</p> : null}
         </FormGroup>
         <FormGroup>
           <Label for="lastName">Last Name</Label>
@@ -59,9 +95,23 @@ const Register = () => {
             type="text"
             name="lastName"
             id="lastName"
-            placeholder="Username"
-            onChange={handleChange}
+            placeholder="last Name"
+            value={userData.lastName}
+            onChange={(handleChange, inputChange)}
           />
+          {errors.lastName.length > 0 ? <p>{errors.Lastname}</p> : null}
+        </FormGroup>
+        <FormGroup>
+          <Label for="userName">Username</Label>
+          <Input
+            type="text"
+            name="userName"
+            id="userName"
+            placeholder="Username"
+            value={userData.userName}
+            onChange={(handleChange, inputChange)}
+          />
+          {errors.userName.length > 0 ? <p>{errors.userName}</p> : null}
         </FormGroup>
         <FormGroup>
           <Label for="exampleEmail">Email</Label>
@@ -70,8 +120,10 @@ const Register = () => {
             name="email"
             id="exampleEmail"
             placeholder="Email"
-            onChange={handleChange}
+            value={userData.email}
+            onChange={(handleChange, inputChange)}
           />
+          {errors.email.length > 0 ? <p>{errors.email}</p> : null}
         </FormGroup>
         <FormGroup>
           <Label for="examplePassword">Password</Label>
@@ -80,8 +132,10 @@ const Register = () => {
             name="password"
             id="examplePassword"
             placeholder="Password"
-            onChange={handleChange}
+            value={userData.password}
+            onChange={(handleChange, inputChange)}
           />
+          {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </FormGroup>
         <Button color="danger">Sign Up</Button>
       </Form>

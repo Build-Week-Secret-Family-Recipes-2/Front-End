@@ -1,17 +1,9 @@
 import React, { useState } from "react";
-import {
-  Card,
-  Form,
-  Button,
-  FormGroup,
-  Label,
-  Input,
-} from "reactstrap";
+import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 import * as yup from "yup";
 
-
 const RecipeCard = () => {
-    //setting initial state
+  //setting initial state
   const [userRecipe, setUserRecipe] = useState({
     recipeTitle: "",
     source: "",
@@ -19,7 +11,7 @@ const RecipeCard = () => {
     instructions: "",
     categories: "",
   });
-    
+
   //validation schema
   const recipeSchema = yup.object().shape({
     recipeTitle: yup.string().required("Enter your Recipe Name"),
@@ -46,12 +38,13 @@ const RecipeCard = () => {
   };
   return (
     <Card style={{ margin: "20px auto", width: "50%" }}>
-      <Form style={{ margin: "20px auto" }}
-      onSubmit={(e) => {
+      <Form
+        style={{ margin: "20px auto" }}
+        onSubmit={(e) => {
           e.preventDefault();
           submitRecipeForm();
           console.log(userRecipe);
-      }}
+        }}
       >
         <FormGroup>
           <Label for="recipeTitle">Recipe Title</Label>

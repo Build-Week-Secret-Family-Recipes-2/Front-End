@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 import * as yup from "yup";
 
 const Register = () => {
+  //holds the state of data for users
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -11,14 +12,29 @@ const Register = () => {
     password: "",
   });
 
+  //yup for validation
   const formSchema = yup.object().shape({
+    email: yup.string().email().required("Please enter an email!"),
+    password: yup.string().required("Please enter a password!"),
     firstName: yup.string().required("Please enter your first name!"),
     lastName: yup.string().required("Please enter your last name!"),
     userName: yup.string().required("Please enter a Username!"),
-    email: yup.string().required("Please enter an email!"),
-    password: yup.string().required("Please enter a password!"),
   });
 
+  //submits the form
+  const submitForm = (e) => {
+    yup
+      .reach(formSchema)
+      .validate(userData)
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //Holds the state of errors
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -27,19 +43,10 @@ const Register = () => {
     password: "",
   });
 
-  const submitForm = (e) => {
-    formSchema
-      .validate(userData)
-      .then((resp) => {
-        console.log(resp.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  //Checks the form to see if everything is written
   const formValidation = (e) => {
-    formSchema
+    yup
+      .reach(formSchema, e.target.name)
       .validate(e.target.value)
       .then((valid) => {
         setErrors({ ...errors, [e.target.name]: "" });
@@ -52,6 +59,7 @@ const Register = () => {
       });
   };
 
+  //Handles the input changes
   const inputChange = (e) => {
     e.persist();
     const newFormData = {
@@ -62,10 +70,15 @@ const Register = () => {
     setUserData(newFormData);
   };
 
-  // (From Alex) ??
-  const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
+  //holds state for the button to be disabled until form is filled out
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  //Changes the button to being enabled once the form is filled out, and disabled if an input is erased
+  useEffect(() => {
+    formSchema.isValid(userData).then((valid) => {
+      setButtonDisabled(!valid);
+    });
+  }, [userData]);
 
   return (
     <Card style={{ margin: "20px auto", width: "50%" }}>
@@ -74,7 +87,6 @@ const Register = () => {
         onSubmit={(e) => {
           e.preventDefault();
           submitForm();
-          console.log(userData);
         }}
       >
         <FormGroup>
@@ -83,9 +95,9 @@ const Register = () => {
             type="text"
             name="firstName"
             id="firstName"
-            placeholder="Username"
+            placeholder="First Name"
             value={userData.firstName}
-            onChange={(handleChange, inputChange)}
+            onChange={inputChange}
           />
           {errors.firstName.length > 0 ? <p>{errors.firstName}</p> : null}
         </FormGroup>
@@ -95,11 +107,11 @@ const Register = () => {
             type="text"
             name="lastName"
             id="lastName"
-            placeholder="last Name"
+            placeholder="Last Name"
             value={userData.lastName}
-            onChange={(handleChange, inputChange)}
+            onChange={inputChange}
           />
-          {errors.lastName.length > 0 ? <p>{errors.Lastname}</p> : null}
+          {errors.lastName.length > 0 ? <p>{errors.lastName}</p> : null}
         </FormGroup>
         <FormGroup>
           <Label for="userName">Username</Label>
@@ -109,35 +121,37 @@ const Register = () => {
             id="userName"
             placeholder="Username"
             value={userData.userName}
-            onChange={(handleChange, inputChange)}
+            onChange={inputChange}
           />
           {errors.userName.length > 0 ? <p>{errors.userName}</p> : null}
         </FormGroup>
         <FormGroup>
-          <Label for="exampleEmail">Email</Label>
+          <Label for="email">Email</Label>
           <Input
             type="email"
             name="email"
-            id="exampleEmail"
+            id="email"
             placeholder="Email"
             value={userData.email}
-            onChange={(handleChange, inputChange)}
+            onChange={inputChange}
           />
           {errors.email.length > 0 ? <p>{errors.email}</p> : null}
         </FormGroup>
         <FormGroup>
-          <Label for="examplePassword">Password</Label>
+          <Label for="password">Password</Label>
           <Input
             type="password"
             name="password"
-            id="examplePassword"
+            id="password"
             placeholder="Password"
             value={userData.password}
-            onChange={(handleChange, inputChange)}
+            onChange={inputChange}
           />
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </FormGroup>
-        <Button color="danger">Sign Up</Button>
+        <Button disabled={buttonDisabled} color="danger">
+          Sign Up
+        </Button>
       </Form>
     </Card>
   );

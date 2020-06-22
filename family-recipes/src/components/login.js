@@ -1,5 +1,23 @@
 import React from 'react';
 import { Card, Form, Button, FormGroup, Label, Input } from 'reactstrap';
+// import axios from 'axios'
+
+
+// const loginHandler = (e) => {
+//   e.preventDefault()
+//   axios
+//       .post('BACK END LOGIN API GOES HERE', loginData)
+//       .then(res => {
+//           console.log('Login Res:', res)
+//           localStorage.setItem('token', res.data.token)
+//           history.push('/')
+//       })
+//       .catch(err => console.log('Login Error:', err.message))
+//       .finally(()=> {
+//           window.location.reload()
+//       })
+// }
+
 
 const Login = () => {
     return(

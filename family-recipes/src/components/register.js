@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 import * as yup from "yup";
+// import axios from 'axios'
 
 const Register = () => {
   //holds the state of data for users
@@ -79,6 +80,21 @@ const Register = () => {
       setButtonDisabled(!valid);
     });
   }, [userData]);
+
+  //registerHandler goes in onSubmit?
+
+//   const registerHandler = (e) => {
+//     e.preventDefault()
+//     axios
+//         .post('BACK END REGISTER API GOES HERE', userData)
+//         .then(res => {
+//             console.log('New User Res:', res)
+//             window.localStorage.setItem('id', res.data.data.id)
+//             history.push('/login')
+//         })
+//         .catch(err => console.log('New User Error:', err.message))
+// }
+
 
   return (
     <Card style={{ margin: "20px auto", width: "50%" }}>

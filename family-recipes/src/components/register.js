@@ -86,7 +86,7 @@ const Register = () => {
 //   const registerHandler = (e) => {
 //     e.preventDefault()
 //     axios
-//         .post('BACK END API GOES HERE', userData)
+//         .post('BACK END REGISTER API GOES HERE', userData)
 //         .then(res => {
 //             console.log('New User Res:', res)
 //             window.localStorage.setItem('id', res.data.data.id)

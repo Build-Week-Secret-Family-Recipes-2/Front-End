@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 import * as yup from "yup";
 
@@ -23,7 +23,8 @@ const RecipeCard = () => {
 
   //submit form
   const submitRecipeForm = (e) => {
-    recipeSchema
+    yup
+      .reach(recipeSchema)
       .validate(userRecipe)
       .then((resp) => {
         console.log(resp.data);
@@ -33,9 +34,52 @@ const RecipeCard = () => {
       });
   };
 
-  const handleRecipeChange = (e) => {
-    setUserRecipe({ ...userRecipe, [e.target.name]: e.target.value });
+  //Holds the state of errors
+  const [errors, setErrors] = useState({
+    recipeTitle: "",
+    source: "",
+    ingredients: "",
+    instructions: "",
+    categories: "",
+  });
+
+  //Checks the form to see if everything is written
+  const recipeFormValidation = (e) => {
+    yup
+      .reach(recipeSchema, e.target.name)
+      .validate(e.target.value)
+      .then((valid) => {
+        setErrors({ ...errors, [e.target.name]: "" });
+      })
+      .catch((err) => {
+        setErrors({
+          ...errors,
+          [e.target.name]: err.errors[0],
+        });
+      });
   };
+
+  //Handles the input changes
+  const handleRecipeChange = (e) => {
+    e.persist();
+    const newFormData = {
+      ...userRecipe,
+      [e.target.name]: e.target.value,
+    };
+    recipeFormValidation(e);
+    setUserRecipe(newFormData);
+  };
+
+  //holds state for the button to be disabled until form is filled out
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  //Changes the button to being enabled once the form is filled out, and disabled if an input is erased
+  useEffect(() => {
+    recipeSchema.isValid(userRecipe).then((valid) => {
+      setButtonDisabled(!valid);
+    });
+  }, [userRecipe]);
+
   return (
     <Card style={{ margin: "20px auto", width: "50%" }}>
       <Form
@@ -54,7 +98,10 @@ const RecipeCard = () => {
             id="recipeTitle"
             placeholder="Title"
             onChange={handleRecipeChange}
+            value={userRecipe.recipeTitle}
           />
+          {errors.recipeTitle.length > 0 ? <p>{errors.recipeTitle}</p> : null}
+
           <FormGroup>
             <Label for="source">Source</Label>
             <Input
@@ -63,7 +110,9 @@ const RecipeCard = () => {
               id="source"
               placeholder="source"
               onChange={handleRecipeChange}
+              value={userRecipe.source}
             />
+            {errors.source.length > 0 ? <p>{errors.source}</p> : null}
           </FormGroup>
         </FormGroup>
         <FormGroup>
@@ -74,7 +123,9 @@ const RecipeCard = () => {
             id="Ingredients"
             placeholder="Ingredients"
             onChange={handleRecipeChange}
+            value={userRecipe.ingredients}
           />
+          {errors.ingredients.length > 0 ? <p>{errors.ingredients}</p> : null}
         </FormGroup>
 
         <FormGroup>
@@ -85,21 +136,27 @@ const RecipeCard = () => {
             id="instructions"
             placeholder="instructions"
             onChange={handleRecipeChange}
+            value={userRecipe.instructions}
           />
+          {errors.instructions.length > 0 ? <p>{errors.instructions}</p> : null}
         </FormGroup>
 
         <FormGroup>
-          <Label for="catergories">Categories</Label>
+          <Label for="categories">Categories</Label>
           <Input
             type="text"
             name="categories"
             id="categories"
             placeholder="categories"
             onChange={handleRecipeChange}
+            value={userRecipe.categories}
           />
+          {errors.categories.length > 0 ? <p>{errors.categories}</p> : null}
         </FormGroup>
 
-        <Button color="danger">Add Recipe</Button>
+        <Button disabled={buttonDisabled} color="danger">
+          Add Recipe
+        </Button>
       </Form>
     </Card>
   );

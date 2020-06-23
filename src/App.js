@@ -6,26 +6,24 @@ import RecipeCard from "./components/recipe";
 // import PrivateRoute from "./utils/privateRoute"
 // import { Route, Switch} from "react-router-dom";
 
-
 function App() {
-
   return (
     <div className="App">
-          {/* <Switch> */}
-          {/* <Route path='/register' >
+      {/* <Switch> */}
+      {/* <Route path='/register' >
             <Register />
           </Route> */}
 
-          {/* <Route exact path='/login'>
+      {/* <Route exact path='/login'>
             <Login />
           </Route> */}
 
-          {/* <PrivateRoute path='BACK END API PATH' component={NewRecipe} />
+      {/* <PrivateRoute path='BACK END API PATH' component={NewRecipe} />
 
           <PrivateRoute path='/' component={RecipeCard} /> */}
 
-        {/* </Switch> */}
-      
+      {/* </Switch> */}
+
       <RecipeCard />
     </div>
   );

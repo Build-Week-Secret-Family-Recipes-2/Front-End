@@ -1,19 +1,19 @@
-// import React from 'react'
-// import {Route, Redirect} from 'react-router-dom'
+import React from 'react'
+import {Route, Redirect} from 'react-router-dom'
 
-// const PrivateRoute = ({component: Component, ...rest}) => {
-//   const token = localStorage.getItem('token')
-//   return (
-//     <Route 
-//       {...rest}
-//       render={()=>{
-//         if (token){
-//           return <Component />
-//         } else {
-//           return <Redirect to='LOGIN PATH GOES HERE THIS CODE IS TEMP' />
-//         }
-//       }}/>
-//   )
-// }
+const PrivateRoute = ({component: Component, ...rest}) => {
+  const token = localStorage.getItem('token')
+  return (
+    <Route 
+      {...rest}
+      render={()=>{
+        if (token){
+          return <Component />
+        } else {
+          return <Redirect to='/api/auth/login' />
+        }
+      }}/>
+  )
+}
 
-// export default PrivateRoute
+export default PrivateRoute

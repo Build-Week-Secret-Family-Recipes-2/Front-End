@@ -1,7 +1,7 @@
 import React from "react";
 // import Login from "./components/login";
-import Register from "./components/register";
-// import RecipeCard from "./components/recipe";
+// import Register from "./components/register";
+import RecipeCard from "./components/recipe";
 // import NewRecipe from "./components/newRecipe"
 // import PrivateRoute from "./utils/privateRoute"
 // import { Route, Switch} from "react-router-dom";
@@ -26,7 +26,7 @@ function App() {
 
         {/* </Switch> */}
       
-      <Register/>
+      <RecipeCard />
     </div>
   );
 }

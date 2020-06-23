@@ -1,38 +1,60 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from 'reactstrap';
-// import axios from 'axios'
+import axios from 'axios'
+import { Link } from "react-router-dom";
+import { authentication } from "../utils/authentication";
+
+const initialState = {
+  username: "",
+  password: "",
+  isFetching: false
+};
 
 
-// const loginHandler = (e) => {
-//   e.preventDefault()
-//   axios
-//       .post('BACK END LOGIN API GOES HERE', loginData)
-//       .then(res => {
-//           console.log('Login Res:', res)
-//           localStorage.setItem('token', res.data.token)
-//           history.push('/')
-//       })
-//       .catch(err => console.log('Login Error:', err.message))
-//       .finally(()=> {
-//           window.location.reload()
-//       })
-// }
+
+const Login = (props) => {
+
+  const [inputValues, setInputValues] = useState(initialState);
+
+  const handleChange = e => {
+    setInputValues({ ...inputValues, [e.target.name]: e.target.value });
+  };
+
+const loginHandler = (e) => {
+  e.preventDefault()
+  authentication()
+      .post('/api/auth/login', inputValues)
+      .then(res => {
+          console.log('Login Res:', res)
+          localStorage.setItem('token', res.data.token)
+          props.history.push('/api/wow')
+      })
+      .catch(err => console.log('Login Error:', err.message))
+      // .finally(()=> {
+      //     window.location.reload()
+      // })
+}
 
 
-const Login = () => {
+
     return(
         <>
+
+          <div className='accountthing'>
+                No account?
+                <Link className='login-link' to='/api/auth/register'>Register</Link>
+            </div>
         <Card style={{ margin: "20px auto", width: "50%" }}>
-         <Form style={{ margin: "20px auto"}}>
+         <Form style={{ margin: "20px auto"}} onSubmit={loginHandler}>
       <FormGroup>
         <Label for="username">Username</Label>
-        <Input type="text" name="username" id="username" placeholder="Username" />
+        <Input type="text" name="username" id="username" placeholder="Username" onChange={handleChange} />
       </FormGroup>
       <FormGroup>
         <Label for="examplePassword">Password</Label>
-        <Input type="password" name="password" id="examplePassword" />
+        <Input type="password" name="password" id="examplePassword" onChange={handleChange} />
       </FormGroup>
-      <Button color="danger">Log In</Button>
+      <Button color="danger" type="submit">Log In</Button>
       </Form>
       </Card>
         </>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 import * as yup from "yup";
-// import axios from 'axios'
+import axios from 'axios'
+import { Link } from "react-router-dom";
+import { authentication } from "../utils/authentication";
 
-const Register = () => {
+const Register = (props) => {
   //holds the state of data for users
   const [userData, setUserData] = useState({
     firstName: "",
@@ -23,17 +25,17 @@ const Register = () => {
   });
 
   //submits the form
-  const submitForm = (e) => {
-    yup
-      .reach(formSchema)
-      .validate(userData)
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const submitForm = (e) => {
+  //   yup
+  //     .reach(formSchema)
+  //     .validate(userData)
+  //     .then((resp) => {
+  //       console.log(resp);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   //Holds the state of errors
   const [errors, setErrors] = useState({
@@ -83,27 +85,30 @@ const Register = () => {
 
   //registerHandler goes in onSubmit?
 
-//   const registerHandler = (e) => {
-//     e.preventDefault()
-//     axios
-//         .post('BACK END REGISTER API GOES HERE', userData)
-//         .then(res => {
-//             console.log('New User Res:', res)
-//             window.localStorage.setItem('id', res.data.data.id)
-//             history.push('/login')
-//         })
-//         .catch(err => console.log('New User Error:', err.message))
-// }
+  const registerSubmit = (e) => {
+    e.preventDefault()
+    authentication()
+        .post('https://build-week-recipe-back-end.herokuapp.com/api/auth/register', userData)
+        .then(res => {
+            console.log('New User Res:', res)
+            // window.localStorage.setItem('id', res.data.data.id)
+            props.history.push('/api/auth/login')
+        })
+        .catch(err => console.log('New User Error:', err.message))
+};
+
 
 
   return (
+    <>
+    <div className='accountthing'>
+                Back again huh?
+                <Link className='login-link' to='/api/auth/login'>Login</Link>
+            </div>
     <Card style={{ margin: "20px auto", width: "50%" }}>
       <Form
         style={{ margin: "20px auto" }}
-        onSubmit={(e) => {
-          e.preventDefault();
-          submitForm();
-        }}
+        onSubmit={registerSubmit}
       >
         <FormGroup>
           <Label for="firstName">First Name</Label>
@@ -165,11 +170,12 @@ const Register = () => {
           />
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </FormGroup>
-        <Button disabled={buttonDisabled} color="danger">
+        <Button disabled={buttonDisabled} type="submit" color="danger">
           Sign Up
         </Button>
       </Form>
     </Card>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "reactstrap";
 import { authentication } from "../utils/authentication";
 
-const UserProfile = (props) => {
+const UserRecipes = (props) => {
   const [userRecipes, setUserRecipes] = useState([]);
   useEffect(() => {
     authentication()
@@ -46,4 +46,4 @@ const UserProfile = (props) => {
   );
 };
 
-export default UserProfile;
+export default UserRecipes;

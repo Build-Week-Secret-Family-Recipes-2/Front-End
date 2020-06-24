@@ -5,7 +5,7 @@ import RecipeCard from "./components/recipe";
 // import NewRecipe from "./components/newRecipe"
 // import PrivateRoute from "./utils/privateRoute"
 // import { Route, Switch} from "react-router-dom";
-import UserProfile from "./components/profile";
+import UserRecipes from "./components/userRecipes";
 import axios from "axios";
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
 
       {/* </Switch> */}
 
-      <UserProfile />
+      <UserRecipes />
     </div>
   );
 }

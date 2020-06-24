@@ -9,7 +9,7 @@ const UserRecipes = (props) => {
       .get("/api/recipes")
       .then((res) => {
         setUserRecipes(res.data);
-        console.log(userRecipes);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log("Couldn't add recipe!", err);

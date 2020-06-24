@@ -27,7 +27,7 @@ const loginHandler = (e) => {
       .then(res => {
           console.log('Login Res:', res)
           localStorage.setItem('token', res.data.token)
-          props.history.push('/api/wow')
+          props.history.push('/api/users')
       })
       .catch(err => console.log('Login Error:', err.message))
       // .finally(()=> {

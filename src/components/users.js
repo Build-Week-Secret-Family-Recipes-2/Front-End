@@ -7,7 +7,7 @@ const Users = () => {
 
   useEffect(() => {
     authentication()
-      .get("api/users")
+      .get("/api/users")
       .then((res) => {
         setMembers(res.data);
         console.log(members);

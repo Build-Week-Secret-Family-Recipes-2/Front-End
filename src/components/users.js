@@ -12,9 +12,7 @@ const Users = () => {
         setMembers(res.data);
         console.log(members);
       })
-      .catch((err) =>
-        console.log("sorry, the recipe was so bad it gave an error", err)
-      );
+      .catch((err) => console.log("No available users", err));
   }, []);
 
   return (
@@ -23,19 +21,12 @@ const Users = () => {
       <div>
         {members.map((users) => {
           return (
-            <Card
-              key={users.id}
-              style={{ margin: "20px auto", width: "20%" }}
-            >
+            <Card key={users.id} style={{ margin: "20px auto", width: "20%" }}>
               <p style={{ marginLeft: "25%", marginTop: "10px" }}>
                 Username: {users.username}
               </p>
-              <p style={{ marginLeft: "25%" }}>
-                First Name: {users.firstName}
-              </p>
-              <p style={{ marginLeft: "25%" }}>
-                Last Name: {users.lastName}
-              </p>
+              <p style={{ marginLeft: "25%" }}>First Name: {users.firstName}</p>
+              <p style={{ marginLeft: "25%" }}>Last Name: {users.lastName}</p>
             </Card>
           );
         })}

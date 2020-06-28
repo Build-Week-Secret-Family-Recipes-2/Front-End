@@ -22,24 +22,27 @@ const UserRecipes = props => {
       .get(`/api/recipes/`)
       .then((res) => {
           console.log(res.data, 'res search data')
-        setPosts( res.data.filter(recipes => {
+        setPosts( res.data.filter(recipe => {
             console.log(res.data)
-            console.log(recipes.category)
+            console.log(recipe.category)
           if(searchTerm ==="")
           {
              
-            return recipes
+            return recipe
           }
-          else(
-              recipes.title === searchTerm || recipes.category === searchTerm)
+          else if (
+              recipe.title === searchTerm || recipe.category === searchTerm)
           {
-              console.log(recipes.title.includes(searchTerm))
-              console.log(recipes.category.includes(searchTerm))
-            return recipes
+            return recipe
 
           }
+          else {
+            return null
+          }
+          
         }));
         console.log("recipe search is returning!", res);
+        
       })
       .catch((err) => console.log("error with search", err)) 
       

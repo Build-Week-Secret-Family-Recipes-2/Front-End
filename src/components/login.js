@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from 'reactstrap';
-import axios from 'axios'
+// import axios from 'axios'
 import { Link } from "react-router-dom";
 import { authentication } from "../utils/authentication";
 
@@ -26,13 +26,14 @@ const loginHandler = (e) => {
       .post('/api/auth/login', inputValues)
       .then(res => {
           console.log('Login Res:', res)
-          localStorage.setItem('token', res.data.token)
-          props.history.push('/api/users')
+          localStorage.setItem('token', res.data.message)
+          localStorage.setItem('id', res.data.user_id)
+          props.history.push('/api/recipes')
       })
       .catch(err => console.log('Login Error:', err.message))
-      // .finally(()=> {
-      //     window.location.reload()
-      // })
+      .finally(()=> {
+          window.location.reload()
+      })
 }
 
 
@@ -41,8 +42,8 @@ const loginHandler = (e) => {
         <>
 
           <div className='accountthing'>
-                No account?
-                <Link className='login-link' to='/api/auth/register'>Register</Link>
+                Login
+                
             </div>
         <Card style={{ margin: "20px auto", width: "50%" }}>
          <Form style={{ margin: "20px auto"}} onSubmit={loginHandler}>
@@ -57,6 +58,11 @@ const loginHandler = (e) => {
       <Button color="danger" type="submit">Log In</Button>
       </Form>
       </Card>
+
+      <div className='accountthings'>
+                No account?
+                <Link className='login-link' to='/api/auth/register'>Register</Link>
+            </div>
         </>
     )
 }

@@ -1,48 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Card, Form, Button, FormGroup, Label, Input } from "reactstrap";
 import * as yup from "yup";
-import axios from 'axios'
+// import axios from 'axios'
 import { Link } from "react-router-dom";
 import { authentication } from "../utils/authentication";
 
 const Register = (props) => {
   //holds the state of data for users
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
+    name: "",
     email: "",
+    username: "",
     password: "",
   });
 
   //yup for validation
   const formSchema = yup.object().shape({
-    email: yup.string().email().required("Please enter an email!"),
-    password: yup.string().required("Please enter a password!"),
-    firstName: yup.string().required("Please enter your first name!"),
-    lastName: yup.string().required("Please enter your last name!"),
-    userName: yup.string().required("Please enter a Username!"),
+    name: yup.string().required("Please enter an name!"),
+    email: yup.string().required("Please enter a email!"),
+    username: yup.string().required("Please enter your username!"),
+    password: yup.string().required("Please enter your password!"),
   });
 
-  //submits the form
-  // const submitForm = (e) => {
-  //   yup
-  //     .reach(formSchema)
-  //     .validate(userData)
-  //     .then((resp) => {
-  //       console.log(resp);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
 
   //Holds the state of errors
   const [errors, setErrors] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
+    name: "",
     email: "",
+    username: "",
     password: "",
   });
 
@@ -88,10 +73,10 @@ const Register = (props) => {
   const registerSubmit = (e) => {
     e.preventDefault()
     authentication()
-        .post('https://build-week-recipe-back-end.herokuapp.com/api/auth/register', userData)
+        .post('https://secretfamrecipes.herokuapp.com/api/auth/register', userData)
         .then(res => {
             console.log('New User Res:', res)
-            // window.localStorage.setItem('id', res.data.data.id)
+            localStorage.setItem('id', res.data.user_id)
             props.history.push('/api/auth/login')
         })
         .catch(err => console.log('New User Error:', err.message))
@@ -101,9 +86,9 @@ const Register = (props) => {
 
   return (
     <>
-    <div className='accountthing'>
-                Back again huh?
-                <Link className='login-link' to='/api/auth/login'>Login</Link>
+    <div className='accountthings'>
+                Register
+                
             </div>
     <Card style={{ margin: "20px auto", width: "50%" }}>
       <Form
@@ -111,70 +96,64 @@ const Register = (props) => {
         onSubmit={registerSubmit}
       >
         <FormGroup>
-          <Label for="firstName">First Name</Label>
+          <Label for="name">name</Label>
           <Input
-            type="text"
-            name="firstName"
-            id="firstName"
-            placeholder="First Name"
-            value={userData.firstName}
+            type="string"
+            name="name"
+            id="name"
+            placeholder="name"
+            value={userData.name}
             onChange={inputChange}
           />
-          {errors.firstName.length > 0 ? <p>{errors.firstName}</p> : null}
+          {errors.name.length > 0 ? <p>{errors.name}</p> : null}
         </FormGroup>
         <FormGroup>
-          <Label for="lastName">Last Name</Label>
+          <Label for="email">email</Label>
           <Input
-            type="text"
-            name="lastName"
-            id="lastName"
-            placeholder="Last Name"
-            value={userData.lastName}
-            onChange={inputChange}
-          />
-          {errors.lastName.length > 0 ? <p>{errors.lastName}</p> : null}
-        </FormGroup>
-        <FormGroup>
-          <Label for="userName">Username</Label>
-          <Input
-            type="text"
-            name="userName"
-            id="userName"
-            placeholder="Username"
-            value={userData.userName}
-            onChange={inputChange}
-          />
-          {errors.userName.length > 0 ? <p>{errors.userName}</p> : null}
-        </FormGroup>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input
-            type="email"
+            type="string"
             name="email"
             id="email"
-            placeholder="Email"
+            placeholder="email"
             value={userData.email}
             onChange={inputChange}
           />
           {errors.email.length > 0 ? <p>{errors.email}</p> : null}
         </FormGroup>
         <FormGroup>
-          <Label for="password">Password</Label>
+          <Label for="username">Username</Label>
+          <Input
+            type="string"
+            name="username"
+            id="username"
+            placeholder="username"
+            value={userData.username}
+            onChange={inputChange}
+          />
+          {errors.username.length > 0 ? <p>{errors.username}</p> : null}
+        </FormGroup>
+        <FormGroup>
+          <Label for="password">pass</Label>
           <Input
             type="password"
             name="password"
             id="password"
-            placeholder="Password"
+            placeholder="password"
             value={userData.password}
             onChange={inputChange}
           />
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </FormGroup>
+
         <Button disabled={buttonDisabled} type="submit" color="danger">
           Sign Up
         </Button>
       </Form>
     </Card>
+
+    <div className='accountthings'>
+                Back again huh?
+                <Link className='login-link' to='/api/auth/login'>Login</Link>
+            </div>
     </>
   );
 };

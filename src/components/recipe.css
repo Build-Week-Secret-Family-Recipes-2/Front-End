@@ -1,0 +1,48 @@
+.um {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+    background-color: hotpink;
+
+}
+/* .cardthing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+.accountthing {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 3rem;
+}
+.accountthings {
+    display: flex;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.container{
+    background-image: url(../images/cupcakes.jpg);
+    background-size: 150px;
+  }
+
+  .container1 {
+      background-image: url(../images/donuts.jpg);
+      background-size: 150px;
+  }
+
+  .container2 {
+    background-image: url(../images/sprinkles.jpg);
+    background-size: 1000px;
+    height: 1000px;
+    
+  }
+
+  .searchThing {
+      display: flex;
+      justify-content: center;
+  }

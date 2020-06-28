@@ -30,7 +30,7 @@ const UserRecipes = props => {
              
             return recipes
           }
-          else if (
+          else(
               recipes.title === searchTerm || recipes.category === searchTerm)
           {
               console.log(recipes.title.includes(searchTerm))

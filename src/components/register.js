@@ -66,7 +66,7 @@ const Register = (props) => {
     formSchema.isValid(userData).then((valid) => {
       setButtonDisabled(!valid);
     });
-  }, [userData]);
+  }, [userData, formSchema]);
 
   //registerHandler goes in onSubmit?
 

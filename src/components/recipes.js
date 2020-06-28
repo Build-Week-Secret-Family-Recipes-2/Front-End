@@ -22,7 +22,7 @@ const UserRecipes = props => {
       .get(`/api/recipes/`)
       .then((res) => {
           console.log(res.data, 'res search data')
-        setPosts( res.data.filter(recipes=> {
+        setPosts( res.data.filter(recipes => {
             console.log(res.data)
             console.log(recipes.category)
           if(searchTerm ==="")

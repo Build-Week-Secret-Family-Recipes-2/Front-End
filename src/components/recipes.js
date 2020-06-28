@@ -1,36 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { authentication } from "../utils/authentication";
-import styled from "styled-components";
 import { Card } from "reactstrap";
 import './recipe.css'
 import { Link} from "react-router-dom";
-
-
-const TextInput = styled.input`
-  margin: 1% 1%;
-  height: 40px;
-  width: 100%;
-  border-radius: 5px;
-  font-size: 1rem;
-  padding: 0 2%;
-  border: 2px solid purple;
-`;
-
-const ButtonStyle = styled.button`
-  width: 100px;
-  height: 35px;
-  margin: 5px;
-  border-radius: 5px;
-  border: none;
-  font-size: 1rem;
-  font-weight: bold;
-  background: lightblue;
-  color: black;
-  margin-top: 1%;
-  font: 15px Poppins, sans-serif;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-`;
 
   
 //functional component
